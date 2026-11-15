@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="黄俊辉的个人作品集：软件工程专业 · 退役军人 · 自学 AI，用项目记录从 0 到 1的成长过程。" />
+    <title>黄俊辉 · 个人作品集</title>
+    <style>
+      /* ===== 主题变量：亮色（默认）与暗色各一套颜色 ===== */
+      :root {
+        --bg: #ffffff;          /* 页面背景 */
+        --text: #333333;        /* 正文 */
+        --heading: #1f2937;     /* 标题 / 重点文字 */
+        --sub: #4b5563;         /* 次级文字 */
+        --muted: #6b7280;      /* 弱化文字（标签、状态） */
+        --faint: #9ca3af;      /* 最弱文字（占位、页脚） */
+        --border: #e5e7eb;      /* 边框线 */
+        --card-bg: #ffffff;   /* 卡片背景 */
+        --blank-bg: #f9fafb; /* 占位条背景 */
+      }
+      [data-theme="dark"] {
+        --bg: #111827;
+        --text: #d1d5db;
+        --heading: #f9fafb;
+        --sub: #d1d5db;
+        --muted: #9ca3af;
+        --faint: #6b7280;
+        --border: #374151;
+        --card-bg: #1f2937;
+        --blank-bg: #1f2937;
+      }
+
+      /* ===== 基础：单栏、统一字体、干净简洁 ===== */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;      /* 点导航平滑滚动 */
+        scroll-padding-top: 64px;      /* 锚点别被吸顶导航挡住 */
+      }
+      body {
+        font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.7;
+        transition: background 0.2s, color 0.2s;
+      }
+
+      .container {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 48px 24px 64px;
+      }
+
+      /* ===== 顶部导航：锚点 + 深色模式开关 ===== */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-inner {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 10px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .nav-inner .nav-name {
+        font-weight: bold;
+        color: var(--heading);
+        font-size: 16px;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4px 16px;
+        font-size: 14px;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        padding: 2px 0;
+        border-bottom: 2px solid transparent;
+      }
+      .nav-links a:hover {
+        color: var(--heading);
+        border-bottom-color: var(--heading);
+      }
+      #theme-toggle {
+        font-size: 13px;
+        color: var(--sub);
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2px 12px;
+        cursor: pointer;
+        line-height: 1.6;
+      }
+      #theme-toggle:hover {
+        border-color: var(--muted);
+        color: var(--heading);
+      }
+
+      /* ===== 页眉（首页）：姓名 + 一句话定位 + 关键词 + 引导 ===== */
+      header {
+        text-align: center;
+        padding-bottom: 28px;
+        border-bottom: 2px solid var(--heading);
+        margin-bottom: 32px;
+      }
+      header h1 {
+        font-size: 30px;
+        color: var(--heading);
+        letter-spacing: 2px;
+      }
+      header .position {
+        margin-top: 10px;
+        color: var(--sub);
+        font-size: 15px;
+      }
+      header .keywords {
+        margin-top: 14px;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      header .keywords span {
+        font-size: 13px;
+        color: var(--sub);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 2px 12px;
+      }
+      header .value {
+        margin-top: 14px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      header .cta {
+        margin-top: 18px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+      }
+      header .cta .btn {
+        font-size: 14px;
+        padding: 6px 18px;
+        border-radius: 18px;
+        text-decoration: none;
+      }
+      header .cta .btn-primary {
+        background: var(--heading);
+        color: var(--bg);
+      }
+      header .cta .btn-ghost {
+        color: var(--sub);
+        border: 1px solid var(--border);
+      }
+      header .cta .btn-ghost:hover {
+        border-color: var(--muted);
+        color: var(--heading);
+      }
+
+      /* ===== 区块 ===== */
+      section {
+        margin-bottom: 32px;
+      }
+      h2 {
+        font-size: 18px;
+        color: var(--heading);
+        margin-bottom: 12px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--border);
+      }
+      h3 {
+        font-size: 15px;
+        color: var(--heading);
+        margin: 16px 0 6px;
+      }
+
+      /* ===== 关于我：简介段落 ===== */
+      .intro {
+        font-size: 15px;
+        color: var(--text);
+      }
+
+      /* ===== 信息条目（基本信息 / 教育背景 / 联系方式） ===== */
+      .info-row {
+        display: flex;
+        padding: 4px 0;
+        font-size: 15px;
+      }
+      .info-row .label {
+        flex: 0 0 120px;
+        color: var(--muted);
+      }
+      .info-row .value {
+        flex: 1;
+        color: var(--heading);
+      }
+      .info-row .value a {
+        color: var(--heading);
+      }
+
+      /* ===== 占位（待填写） ===== */
+      .blank {
+        color: var(--faint);
+        background: var(--blank-bg);
+        border-bottom: 1px dashed var(--border);
+        padding: 0 4px;
+      }
+
+      /* ===== 项目卡片 ===== */
+      .project {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--card-bg);
+        padding: 16px;
+        margin-bottom: 14px;
+      }
+      .project .proj-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 8px;
+      }
+      .project .proj-head h3 {
+        font-size: 16px;
+        color: var(--heading);
+        margin: 0;
+      }
+      .project .proj-head .status {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .project .line {
+        font-size: 14px;
+        margin: 4px 0;
+      }
+      .project .line .k {
+        color: var(--muted);
+      }
+      .project .line strong {
+        color: var(--heading);
+      }
+
+      /* ===== 技能分组 ===== */
+      .skill-group {
+        margin-bottom: 10px;
+        font-size: 15px;
+      }
+      .skill-group .cat {
+        font-weight: bold;
+        color: var(--heading);
+      }
+
+      footer {
+        text-align: center;
+        color: var(--faint);
+        font-size: 13px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+      }
+
+      /* ===== 手机端适配 ===== */
+      @media (max-width: 600px) {
+        .container {
+          padding: 32px 16px 48px;
+        }
+        header h1 {
+          font-size: 24px;
+        }
+        .nav-inner {
+          padding: 8px 16px;
+        }
+        .info-row .label {
+          flex-basis: 90px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 顶部导航 -->
+    <nav>
+      <div class="nav-inner">
+        <span class="nav-name">黄俊辉</span>
+        <div class="nav-links">
+          <a href="#home">首页</a>
+          <a href="#about">关于我</a>
+          <a href="#projects">项目经验</a>
+          <a href="#works">作品集</a>
+          <a href="#contact">联系方式</a>
+          <button id="theme-toggle" type="button">🌙 深色</button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- 1. 首页：一句话说清我是谁 + 引导往下看 -->
+      <header id="home">
+        <h1>黄俊辉</h1>
+        <p class="position">软件工程 · 退役军人 · 自学 AI，用项目记录成长</p>
+        <p class="keywords">
+          <span>软件工程</span>
+          <span>自学 AI</span>
+          <span>退役军人</span>
+        </p>
+        <p class="value">退伍军人的执行力 + 软件工程基础 + 正在自学 AI，真实记录从 0 到 1 的过程。</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#projects">看看我的项目</a>
+          <a class="btn btn-ghost" href="#contact">联系我</a>
+        </div>
+      </header>
+
+      <!-- 2. 关于我：背景 + 基本信息 + 教育背景 + 专业技能 -->
+      <section id="about">
+        <h2>关于我</h2>
+        <p class="intro">
+          软件工程专业出身，系统学过 C、Java、MySQL 和 Web 基础，后应征入伍。退伍后转型
+          AI 方向，目前全职自学人工智能，把所学落地成项目。这个网站就是我的第一个项目，记录从
+          0 到 1 的学习过程。
+        </p>
+
+        <h3>基本信息</h3>
+        <div class="info-row">
+          <span class="label">姓名</span>
+          <span class="value"><strong>黄俊辉</strong></span>
+        </div>
+        <div class="info-row">
+          <span class="label">邮箱</span>
+          <span class="value">739848897@qq.com</span>
+        </div>
+        <div class="info-row">
+          <span class="label">求职意向</span>
+          <span class="value"><strong>AI + 生产</strong></span>
+        </div>
+        <div class="info-row">
+          <span class="label">个人主页 / GitHub</span>
+          <span class="value"><span class="blank">【待填写，部署上线后补充链接】</span></span>
+        </div>
+
+        <h3>教育背景</h3>
+        <div class="info-row">
+          <span class="label">学校</span>
+          <span class="value"><strong>中山大学南方学院</strong></span>
+        </div>
+        <div class="info-row">
+          <span class="label">专业</span>
+          <span class="value"><strong>软件工程</strong></span>
+        </div>
+        <div class="info-row">
+          <span class="label">学历</span>
+          <span class="value"><strong>本科</strong></span>
+        </div>
+        <div class="info-row">
+          <span class="label">起止时间</span>
+          <span class="value"><strong>2018 - 2022</strong></span>
+        </div>
+
+        <h3>专业技能</h3>
+        <div class="skill-group">
+          <span class="cat">编程语言：</span>C（熟悉 · 基础）、Java（熟悉 · 基础）
+        </div>
+        <div class="skill-group">
+          <span class="cat">数据库：</span>MySQL（了解 · 基础）
+        </div>
+        <div class="skill-group">
+          <span class="cat">前端：</span>HTML / CSS / JavaScript（已独立做出第一版个人网站，含深色模式）
+        </div>
+        <div class="skill-group">
+          <span class="cat">AI：</span>大模型应用（了解 · 自学中）
+        </div>
+        <div class="skill-group">
+          <span class="cat">软技能：</span>执行力 · 纪律性 · 抗压能力（退役军人）
+        </div>
+      </section>
+
+      <!-- 3. 项目经验（核心） -->
+      <section id="projects">
+        <h2>项目经验</h2>
+
+        <div class="project">
+          <div class="proj-head">
+            <h3>个人作品集网站</h3>
+            <span class="status">进行中 · 项目 1</span>
+          </div>
+          <div class="line"><span class="k">背景：</span>既是展示窗口，也是第一个学习项目，记录从 0 到 1 的过程。</div>
+          <div class="line"><span class="k">我的职责：</span>从 0 到 1 独立搭建个人网站，完成内容规划、页面结构与深色模式交互。</div>
+          <div class="line"><span class="k">技术栈：</span><strong>HTML / CSS / JavaScript</strong></div>
+          <div class="line"><span class="k">量化成果：</span>已完成 5 个板块（首页 / 关于我 / 项目 / 作品 / 联系）+ 导航 + 深色模式，通过本地验收，待上线</div>
+        </div>
+
+        <div class="project">
+          <div class="proj-head">
+            <h3>学习日志</h3>
+            <span class="status">每日更新</span>
+          </div>
+          <div class="line"><span class="k">背景：</span>把自学 AI 的过程沉淀为可复盘的技术文章。</div>
+          <div class="line"><span class="k">我的职责：</span>每日输出学习日志，复盘「学了什么 / 做了什么 / 问题感悟」。</div>
+          <div class="line"><span class="k">技术栈：</span><strong>Markdown · 写作复盘</strong></div>
+          <div class="line"><span class="k">量化成果：</span>已连续更新 2 天（自 2026-11-14 起），随学习持续更新</div>
+        </div>
+
+      </section>
+
+      <!-- 4. 作品集：后续 AI 项目 / 文章放这里 -->
+      <section id="works">
+        <h2>作品集</h2>
+        <div class="project">
+          <div class="proj-head">
+            <h3>敬请期待</h3>
+            <span class="status">持续更新</span>
+          </div>
+          <div class="line">这里将放我做过的作品（AI 小应用、文章、复盘等）。第一个接入 AI 能力的项目完成后，会第一时间出现在这里。</div>
+        </div>
+      </section>
+
+      <!-- 5. 联系方式 -->
+      <section id="contact">
+        <h2>联系方式</h2>
+        <div class="info-row">
+          <span class="label">邮箱</span>
+          <span class="value"><a href="mailto:739848897@qq.com">739848897@qq.com</a></span>
+        </div>
+        <div class="info-row">
+          <span class="label">GitHub / 个人主页</span>
+          <span class="value"><span class="blank">【待填写，部署上线后补充链接】</span></span>
+        </div>
+      </section>
+
+      <footer>© 2026 黄俊辉 · 用项目记录成长</footer>
+    </div>
+
+    <script>
+      // ===== 深色模式：能点、能切换、能记住 =====
+      const themeToggle = document.getElementById("theme-toggle");
+
+      // 应用主题：改 html 标签上的 data-theme，CSS 变量自动切换整套颜色
+      function setTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        themeToggle.textContent = theme === "dark" ? "☀️ 亮色" : "🌙 深色";
+      }
+
+      // 初始化：优先用上次的选择，其次跟随系统偏好
+      const saved = localStorage.getItem("theme");
+      if (saved) {
+        setTheme(saved);
+      } else {
+        setTheme(
+          window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+        );
+      }
+
+      // 点击切换，并保存到 localStorage（下次打开还记得）
+      themeToggle.addEventListener("click", function () {
+        const current = document.documentElement.getAttribute("data-theme");
+        const next = current === "dark" ? "light" : "dark";
+        setTheme(next);
+        localStorage.setItem("theme", next);
+      });
+    </script>
+  </body>
+</html>
